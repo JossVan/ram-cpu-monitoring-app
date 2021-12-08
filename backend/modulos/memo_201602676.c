@@ -36,11 +36,10 @@ static int al_abrir(struct inode *inode, struct file *file)
     return single_open(file, escribir_archivo, NULL);
 }
 
-//Si el kernel es menor al 5.6 usan file_operations
-static struct file_operations operaciones =
+static struct proc_ops operaciones =
 {
-    .open = al_abrir,
-    .read = seq_read
+    .proc_open = al_abrir,
+    .proc_read = seq_read
 };
 
 
@@ -48,7 +47,7 @@ static struct file_operations operaciones =
 static int _insert(void)
 {
     proc_create("modulo1", 0, NULL, &operaciones);
-    printk(KERN_INFO "***** proyecto 1 *****\n");
+    printk(KERN_INFO "***** Proyecto 1 *****\n");
     printk(KERN_INFO "Nombre: Josselyn Vanessa Polanco Gameros")
     printk(KERN_INFO "Carnet: 201602676")
     printk(KERN_INFO "Insertando el módulo para información de RAM\n");
@@ -60,7 +59,8 @@ static int _insert(void)
 static void _remove(void)
 {
     remove_proc_entry("modulo1", NULL);
-    printk(KERN_INFO "***** proyecto 1 *****\n");
+    printk(KERN_INFO "***** Proyecto 1 *****\n");
+    printk(KERN_INFO "Curso: SISTEMAS OPERATIVOS I")
     printk(KERN_INFO "Nombre: Josselyn Vanessa Polanco Gameros")
     printk(KERN_INFO "Carnet: 201602676")
     printk(KERN_INFO "Removiendo el módulo para información de RAM\n");
