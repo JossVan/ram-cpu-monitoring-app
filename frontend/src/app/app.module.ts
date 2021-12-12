@@ -8,13 +8,17 @@ import { MenuComponent } from './menu/menu.component';
 import { PrincipalComponent } from './principal/principal.component';
 import { FormsModule } from '@angular/forms';
 import { WebsocketService } from './websocket.service';
+import { ArbolprocesoComponent } from './arbolproceso/arbolproceso.component';
+import { ProcesosComponent } from './procesos/procesos.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
     MenuComponent,
-    PrincipalComponent
+    PrincipalComponent,
+    ArbolprocesoComponent,
+    ProcesosComponent
   ],
   imports: [
     BrowserModule,

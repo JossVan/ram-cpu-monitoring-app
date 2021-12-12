@@ -11,4 +11,7 @@ export class WebsocketService {
   getInfoRam():Observable<any>{
     return this.http.get(this.url+"RAM");
   }
+  getProcesos():Observable<any>{
+    return this.http.get(this.url+"procesos");
+  }
 }
