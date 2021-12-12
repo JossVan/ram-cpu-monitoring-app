@@ -27,25 +27,25 @@ static int Escribir_Archivo(struct seq_file *archivo, void *v)
             cached = 0;
         for (lru = LRU_BASE; lru < NR_LRU_LISTS; lru++)
             pages[lru] = global_node_page_state(NR_LRU_BASE + lru);
-        seq_printf(archivo, "{\n");
-        seq_printf(archivo, "\"total\" :"); 
-        seq_printf(archivo, "%8ld",K(info.totalram));// memoria total
-        seq_printf(archivo,",\n");
-        seq_printf(archivo, "\"usada\" :"); 
-        seq_printf(archivo, "%8ld", ((K(info.totalram) - (K(info.freeram) + K(info.bufferram) + K(cached))))); // memoria en uso
-        seq_printf(archivo,",\n");
-        seq_printf(archivo, "\"libre\" :");
-        seq_printf(archivo, "%8ld", (K(info.freeram))); // memoria libre
-        seq_printf(archivo,",\n");
-        seq_printf(archivo, "\"cache\" :");
-        seq_printf(archivo, "%8ld", (K(cached))); //caché
-        seq_printf(archivo,",\n");
-        seq_printf(archivo, "\"buffer\" :");
-        seq_printf(archivo, "%8ld", (K(info.bufferram))); // buffer
-        seq_printf(archivo,",\n");
-        seq_printf(archivo, "\"porcentaje\" :");
-        seq_printf(archivo, "%8ld", (((K(info.totalram) - (K(info.freeram) + K(info.bufferram) + K(cached))) * 100) / (K(info.totalram)))); //porcentaje de memoria en uso
-        seq_printf(archivo,"\n}");
+        seq_printf(archivo, "{");
+        seq_printf(archivo, "\"total\":"); 
+        seq_printf(archivo, "%ld",K(info.totalram));// memoria total
+        seq_printf(archivo,",");
+        seq_printf(archivo, "\"usada\":"); 
+        seq_printf(archivo, "%ld", ((K(info.totalram) - (K(info.freeram) + K(info.bufferram) + K(cached))))); // memoria en uso
+        seq_printf(archivo,",");
+        seq_printf(archivo, "\"libre\":");
+        seq_printf(archivo, "%ld", (K(info.freeram))); // memoria libre
+        seq_printf(archivo,",");
+        seq_printf(archivo, "\"cache\":");
+        seq_printf(archivo, "%ld", (K(cached))); //caché
+        seq_printf(archivo,",");
+        seq_printf(archivo, "\"buffer\":");
+        seq_printf(archivo, "%ld", (K(info.bufferram))); // buffer
+        seq_printf(archivo,",");
+        seq_printf(archivo, "\"porcentaje\":");
+        seq_printf(archivo, "%ld", (((K(info.totalram) - (K(info.freeram) + K(info.bufferram) + K(cached))) * 100) / (K(info.totalram)))); //porcentaje de memoria en uso
+        seq_printf(archivo,"}");
         
     #undef K
 	return 0;

@@ -17,32 +17,61 @@ MODULE_AUTHOR("Josselyn Polanco");
 
 struct task_struct *proceso,*procesoHijo;
 struct list_head *hijos;
-
+struct sysinfo info;
 static int Escribir_Archivo(struct seq_file *archivo, void *v)
 {
     long num_process=0;
+    long num_process2=0;
     unsigned long rss;
-
-// recorre la lista de procesos
+    si_meminfo(&info);
+    // recorre la lista de procesos
+    seq_printf(archivo,"{");
     for_each_process(proceso){
         //obtengo el porcentaje
         num_process = num_process+1;
+    }
+    for_each_process(proceso){
+        seq_printf(archivo,"{");
+        //PID del proceso
+        seq_printf(archivo,"\"pid\":%d,",proceso->pid);
+        //nombre del proceso
+        seq_printf(archivo,"\"nombre\":%s,",proceso->comm);
+        //estado
+        seq_printf(archivo,"\"estado\":%ld",proceso->state);
+
+        // CONDICIÓN PARA PODER OBTENER EL PORCENTAJE DE RAM UTILIZADO
         if (proceso->mm){
             rss = get_mm_rss(proceso->mm) << PAGE_SHIFT;
-            seq_printf(archivo,"Proceso %s (PID: %d) estado: %ld RAM: %ld\n",proceso->comm, proceso->pid,proceso->state,rss);
-        }else{
-            seq_printf(archivo,"Proceso %s (PID: %d) estado: %ld\n",proceso->comm, proceso->pid,proceso->state);
-        }
-        
+            //ram
+            seq_printf(archivo,",\"ram\":%ld,",rss);
+            
+        } 
         // obtengo los hijos de cada proceso (si tiene)
+        seq_printf(archivo,"\"hijos\":[");
+        long cantHijos = 0;
+        long cantHijos2 = 0;
         list_for_each(hijos, &(proceso->children)){
+            cantHijos = cantHijos+1;
+        }
+        list_for_each(hijos, &(proceso->children)){
+            //empieza la sección del hijo
             procesoHijo = list_entry(hijos, struct task_struct,sibling);
-            seq_printf(archivo,"\tProceso Hijo %s (PID: %d)\n", procesoHijo->comm,procesoHijo->pid);
+            seq_printf(archivo,"{\"nombre\":%s,",procesoHijo->comm);
+            seq_printf(archivo,"\"pid\":%d}",procesoHijo->pid);
+            cantHijos2 = cantHijos2 +1;
+            if (cantHijos != cantHijos2){
+                seq_printf(archivo,",");
+            }
+        }
+        seq_printf(archivo,"]");
+        seq_printf(archivo,"}");
+        num_process2 = num_process2+1;
+        if(num_process2 != num_process){
+            seq_printf(archivo,",");
         }
     }
-    
-    seq_printf(archivo,"%ld",num_process);
-
+    seq_printf(archivo,"\"total_procesos\":%ld",num_process);
+    seq_printf(archivo,"}");
 	return 0;
 }
 

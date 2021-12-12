@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os/exec"
 
 	"github.com/gorilla/websocket"
 )
@@ -28,19 +29,32 @@ func reader(conn *websocket.Conn) {
 		}
 	}
 }
+
 func inicio(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "inicio")
 }
 func infoRam(w http.ResponseWriter, r *http.Request) {
+	//CREO UNA FUNCIÓN WEBSOCKET PARA ENVIAR LOS DATOS DE LA RAM
+
 	upgrader.CheckOrigin = func(r *http.Request) bool {
 		return true
 	}
 	ws, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
+
 		log.Print(err)
+		return
 	} else {
-		log.Print(ws)
+		cmd := exec.Command("sh", "-c", "cat /proc/memo_201602676")
+		out, errorcito := cmd.CombinedOutput()
+		if errorcito != nil {
+			log.Print(errorcito)
+			return
+		}
+		salida := string(out[:])
+		fmt.Fprintf(w, salida)
 	}
+
 	reader(ws)
 }
 func setupRoutes() {
