@@ -1,10 +1,14 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import * as Rx from 'rxjs/Rx'
+import { Observable } from 'rxjs';
 @Injectable()
 export class WebsocketService {
-  private subject:Rx.Subject<MessageEvent>;
   
-  constructor() { }
- 
+  constructor(private http:HttpClient) { }
+  
+  url = "http://localhost:8080/"
 
+  getInfoRam():Observable<any>{
+    return this.http.get(this.url+"RAM");
+  }
 }
