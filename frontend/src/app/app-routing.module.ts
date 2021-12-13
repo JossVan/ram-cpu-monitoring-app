@@ -1,3 +1,4 @@
+import { ListaprocesosComponent } from './listaprocesos/listaprocesos.component';
 import { PrincipalComponent } from './principal/principal.component';
 
 import { NgModule } from '@angular/core';
@@ -12,6 +13,10 @@ const routes: Routes = [
   {
     path:'arbolprocesos',
     component : ArbolprocesoComponent
+  },
+  {
+    path:'procesos',
+    component : ListaprocesosComponent
   },
   {
     path: '',

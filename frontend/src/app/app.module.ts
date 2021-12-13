@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { WebsocketService } from './websocket.service';
 import { ArbolprocesoComponent } from './arbolproceso/arbolproceso.component';
 import { ProcesosComponent } from './procesos/procesos.component';
+import { ListaprocesosComponent } from './listaprocesos/listaprocesos.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ProcesosComponent } from './procesos/procesos.component';
     MenuComponent,
     PrincipalComponent,
     ArbolprocesoComponent,
-    ProcesosComponent
+    ProcesosComponent,
+    ListaprocesosComponent
   ],
   imports: [
     BrowserModule,

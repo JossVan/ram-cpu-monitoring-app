@@ -3,7 +3,7 @@ import { WebsocketService } from '../websocket.service';
 import { interval } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
 import * as jQuery from 'jquery';
-
+declare var $: any;
 @Component({
   selector: 'app-arbolproceso',
   templateUrl: './arbolproceso.component.html',
@@ -12,69 +12,29 @@ import * as jQuery from 'jquery';
 export class ArbolprocesoComponent implements OnInit {
 
   constructor(private servicio: WebsocketService) { }
+
   info : any[] = [];
   ngOnInit(): void {
-    interval(1000)
-    .pipe(takeWhile(() => true))
-    .subscribe(() => {
+
     this.actualizar()
-    let codigo = "<table class=\"footable table table-stripped toggle-arrow-tiny\" data-page-size=\"15\">"+
-    "<thead>"+
-    "<tr>"+
-
-        "<th data-toggle=\"true\">PID</th>"+
-        "<th data-hide=<\"phone\">Nombre del proceso</th>"+
-        "<th data-hide=\"all\">Procesos hijos</th>"+
-        "<th data-hide=\"phone\">Usuario</th>"+
-        "<th data-hide=\"phone\" > RAM utilizada</th>"+
-        "<th data-hide=\"phone\">Estado</th>"+
-
-    "</tr>"+
-    "</thead>"+
-    "<tbody>"
+    let codigo = "<div class=\"jstree1\">"
+    codigo += "<ul><li class=\"jstree-open\">Procesos<ul>"
 
     this.info.forEach(item=>{
-      codigo+="<tr>"
-      codigo +="<td>"
-      codigo += item.pid
-      codigo +="</td>"
-      codigo +="<td>"
-      codigo += item.nombre
-      codigo +="</td>"
-      codigo += "<table class=\"table\"><thead><tr><td>PID</td><td>Nombre</td></tr></thead><tbody>"
+      codigo+="<li>"
+      codigo+= item.pid+" - "+item.nombre
+      codigo+="<ul>"
       item.hijos.forEach(hijo => {
-        codigo+="<tr>"
-        codigo+="<td>"
-        codigo+=hijo.pid
-        codigo+="</td>"
-        codigo+="<td>"
-        codigo+=hijo.nombre
-        codigo+="</td>"
-        codigo+="</tr>"
+        codigo+="<li data-jstree='\"type\":\"css\"}'>"+hijo.pid+" - "+hijo.nombre +"</li>"
       });
-      codigo+="</tbody></table>"
-      codigo +="<td>"
-      codigo += "user"
-      codigo +="</td>"
-      codigo +="<td>"
-      codigo += item.ram
-      codigo +="</td>"
-      codigo += "<td>"+item.estado+"</td></tr>"
-
+      codigo+="</ul>"
+      codigo+="</li>"
     })
+    codigo+="</ul></li></ul>"
+    codigo+="</div>"
+    jQuery('#tree').html(codigo);
+    //this.info = []
 
-    codigo+="</tbody>"+
-    "<tfoot>"+
-    "<tr>"+
-        "<td colspan=\"6\">"+
-            "<ul class=\"pagination float-right\"></ul>"+
-        "</td>"+
-    "</tr>"+
-    "</tfoot>"+
-    "</table>"
-    jQuery('#tabla').html(codigo);
-    this.info = []
-    })
   }
 
 
@@ -108,4 +68,6 @@ export class ArbolprocesoComponent implements OnInit {
         });
       })
   }
+
+
 }
