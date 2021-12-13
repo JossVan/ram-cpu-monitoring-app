@@ -37,7 +37,9 @@
               "./node_modules/jquery/dist/jquery.js",
               "./node_modules/jquery/dist/jquery.min.js",
               "./node_modules/jstree/dist/jstree.min.js",
-              "src/assets/js/plugins/jsTree/jstree.min.js"
+              "src/assets/js/plugins/footable/footable.all.min.js",
+              "src/assets/js/plugins/metisMenu/jquery.metisMenu.js",
+              "src/assets/js/plugins/slimscroll/jquery.slimscroll.min.js"
             ]
           },
           "configurations": {

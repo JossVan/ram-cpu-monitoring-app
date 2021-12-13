@@ -8,7 +8,7 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
   <link href="./assets/font-awesome/css/font-awesome.css" rel="stylesheet">
-
+  <link href="./assets/css/plugins/footable/footable.core.css" rel="stylesheet">
   <link href="./assets/css/animate.css" rel="stylesheet">
   <link href="./assets/css/style.css" rel="stylesheet">
   <link href="./assets/css/plugins/iCheck/custom.css" rel="stylesheet">
@@ -23,8 +23,6 @@
       <script src="./assets/js/jquery-3.1.1.min.js"></script>
       <script src="./assets/js/popper.min.js"></script>
       <script src="./assets/js/bootstrap.js"></script>
-      <script src="./assets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-      <script src="./assets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
     <!-- Custom and plugin javascript -->
     <script src="./assets/js/inspinia.js"></script>
@@ -33,8 +31,6 @@
     <!-- iCheck -->
     <script src="./assets/js/plugins/iCheck/icheck.min.js"></script>
 
-        <!-- Custom and plugin javascript -->
-        <script src="./assets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
         <!-- Chosen -->
         <script src="./assets/js/plugins/chosen/chosen.jquery.js"></script>
@@ -60,8 +56,6 @@
         <!-- iCheck -->
         <script src="./assets/js/plugins/iCheck/icheck.min.js"></script>
 
-        <!-- MENU -->
-        <script src="./assets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
 
         <!-- Color picker -->
         <script src="./assets/js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
@@ -221,6 +215,14 @@
   });
 </script>
 
+<!-- Page-Level Scripts -->
+<script>
+  $(document).ready(function() {
 
+      $('.footable').footable();
+
+  });
+
+</script>
     </body>
 </html>

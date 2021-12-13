@@ -38,10 +38,31 @@ func procesos(w http.ResponseWriter, r *http.Request) {
 	io.WriteString(w, salida)
 }
 
+func kill(w http.ResponseWriter, r *http.Request) {
+	enableCors(w)
+	listapid, existen := r.URL.Query()["pid"]
+	// Imprimir para depurar
+	fmt.Printf("%v\n", listapid)
+	if existen {
+		cmd := exec.Command("sh", "-c", "kill -9 "+listapid[0])
+		out, errorcito := cmd.CombinedOutput()
+		if errorcito != nil {
+			log.Print(errorcito)
+			return
+		}
+		io.WriteString(w, string(out[:]))
+	} else {
+
+		io.WriteString(w, "efe")
+	}
+
+}
+
 func setupRoutes() {
 	http.HandleFunc("/", inicio)
 	http.HandleFunc("/RAM", infoRam)
 	http.HandleFunc("/procesos", procesos)
+	http.HandleFunc("/kill", kill)
 }
 
 func main() {

@@ -30,7 +30,7 @@ export class ListaprocesosComponent implements OnInit {
                    "<i class=\"fa fa-envelope-o fa-5x\"></i>"+
                 "</div>"+
                 "<div class=\"col-8 text-right\">"+
-                    "<span> Running process</span>"+
+                    "<span> Task running </span>"+
                     "<h2 class=\"font-bold\">"+this.running+"</h2>"+
                 "</div>"+
             "</div>"+
@@ -43,7 +43,7 @@ export class ListaprocesosComponent implements OnInit {
                 "<i class=\"fa fa-envelope-o fa-5x\"></i>"+
             "</div>"+
             "<div class=\"col-8 text-right\">"+
-                "<span> Sleeping process </span>"+
+                "<span> Task sleeping  </span>"+
                 "<h2 class=\"font-bold\">"+this.sleeping+"</h2>"+
             "</div>"+
         "</div>"+
@@ -56,7 +56,7 @@ export class ListaprocesosComponent implements OnInit {
                 "<i class=\"fa fa-envelope-o fa-5x\"></i>"+
             "</div>"+
             "<div class=\"col-8 text-right\">"+
-                "<span> Stopped process </span>"+
+                "<span> Task stopped  </span>"+
                 "<h2 class=\"font-bold\">"+this.stopped+"</h2>"+
             "</div>"+
         "</div>"+
@@ -69,7 +69,7 @@ export class ListaprocesosComponent implements OnInit {
                 "<i class=\"fa fa-envelope-o fa-5x\"></i>"+
             "</div>"+
             "<div class=\"col-8 text-right\">"+
-                "<span> Zombie process </span>"+
+                "<span> Task zombie  </span>"+
                 "<h2 class=\"font-bold\">"+this.zombie+"</h2>"+
             "</div>"+
         "</div>"+
@@ -82,7 +82,7 @@ export class ListaprocesosComponent implements OnInit {
                 "<i class=\"fa fa-envelope-o fa-5x\"></i>"+
             "</div>"+
             "<div class=\"col-8 text-right\">"+
-                "<span> Unrunnable process </span>"+
+                "<span> Task interruptible </span>"+
                 "<h2 class=\"font-bold\">"+this.unrunnable+"</h2>"+
             "</div>"+
         "</div>"+
@@ -95,7 +95,7 @@ export class ListaprocesosComponent implements OnInit {
                 "<i class=\"fa fa-envelope-o fa-5x\"></i>"+
             "</div>"+
             "<div class=\"col-8 text-right\">"+
-                "<span> Total process </span>"+
+                "<span> Total </span>"+
                 "<h2 class=\"font-bold\">"+this.total+"</h2>"+
             "</div>"+
         "</div>"+
@@ -161,16 +161,22 @@ let codigo = "<table class=\"table table-striped\">"+
       let total = 0
       total = resultado.total_procesos;
       resultado.procesos.forEach((element:any) => {
-
-        if (element.estado == -1){
+        //#define TASK_INTERRUPTIBLE 1
+        if (element.estado == 1){
           unrunnable = unrunnable+1
-        }else if (element.estado == 0){
+        }
+        //#define TASK_RUNNING 0
+        else if (element.estado == 0){
           running = running + 1
         }else if (element.estado ==1026){
           sleeping = sleeping+1
-        }else if (element.estado == 4){
+        }
+        //#define TASK_ZOMBIE 4
+        else if (element.estado == 4){
           zombie = zombie+1
-        }else if (element.estado>0 && element.estado != 1026){
+        }
+        //#define TASK_STOPPED 8
+        else if (element.estado>0 && element.estado != 1026){
           stopped = stopped +1
         }
 
