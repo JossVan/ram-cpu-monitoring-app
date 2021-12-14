@@ -19,7 +19,7 @@ export class ListaprocesosComponent implements OnInit {
   total : Number = 0
   info : any[] = [];
   ngOnInit(): void {
-    interval(1000)
+    interval(2000)
     .pipe(takeWhile(() => true))
     .subscribe(() => {
     this.actualizar()
@@ -131,7 +131,7 @@ let codigo = "<table class=\"table table-striped\">"+
       codigo +="</td>"
       codigo += "<td>"+item.estado+"</td></tr>"
       codigo += "<td >"+
-      "<button class=\"btn btn-outline btn-danger  dim \" type=\"button\"><i class=\"fa fa-warning\"></i></button>"
+      "<button (click)=\"kill("+item.pid+")\"  class=\"btn btn-outline btn-danger  dim \"><i class=\"fa fa-warning\"></i></button>"
   "</td>"
     })
 
@@ -212,4 +212,12 @@ let codigo = "<table class=\"table table-striped\">"+
       });
     })
 }
+
+  kill(pid){
+    console.log("paso")
+    this.servicio.kill(pid).subscribe(result=>{
+      console.log(result)
+    })
+  }
+
 }

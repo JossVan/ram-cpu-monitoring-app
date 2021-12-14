@@ -13,12 +13,12 @@
           <li>
               <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> <span class="fa arrow"></span></a>
               <ul class="nav nav-second-level collapse">
-                  <li><a href="index.html">Principal</a></li>
-                  <li><a href="dashboard_2.html">Monitor CPU</a></li>
-                  <li><a href="dashboard_2.html">Monitor RAM</a></li>
+                  <li><a [routerLink]="['/principal']"> Principal </a></li>
+                  <li><a [routerLink]="['/procesos']">Lista de procesos</a></li>
+                  <li><a [routerLink]="['/arbolprocesos']">Árbol de procesos</a></li>
               </ul>
           </li>
-          
+
           <li class="active">
               <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Gráficos</span><span class="fa arrow"></span></a>
               <ul class="nav nav-second-level">
@@ -29,7 +29,7 @@
             </ul>
           </li>
 
-          
+
 
       </ul>
 

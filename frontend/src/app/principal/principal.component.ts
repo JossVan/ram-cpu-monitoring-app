@@ -18,6 +18,7 @@ export class PrincipalComponent implements OnInit {
   cache : any ="";
   porcentaje : any ="";
   porcentajeLibre:any = "";
+  por = "";
   ngOnInit(): void {
     //{ total: 3057176, usada: 2304560, libre: 99636, cache: 616708, buffer: 36272, porcentaje: 75 }
     interval(1000)
@@ -32,10 +33,11 @@ export class PrincipalComponent implements OnInit {
         this.cache = (resultado.cache/1024).toFixed(3);
         this.porcentaje = Number(resultado.porcentaje).toFixed(3);
         this.porcentajeLibre = 100-this.porcentaje;
+        this.por = "width: "+this.porcentaje+"%;"
       })
     });
-      
-  
-    
+
+
+
   }
 }

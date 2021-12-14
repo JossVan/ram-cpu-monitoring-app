@@ -11,7 +11,9 @@ import { WebsocketService } from './websocket.service';
 import { ArbolprocesoComponent } from './arbolproceso/arbolproceso.component';
 import { ProcesosComponent } from './procesos/procesos.component';
 import { ListaprocesosComponent } from './listaprocesos/listaprocesos.component';
-
+import { GraphRAMComponent } from './graph-ram/graph-ram.component';
+import { GraphCPUComponent } from './graph-cpu/graph-cpu.component';
+import { ChartModule } from 'angular2-chartjs';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,14 +22,17 @@ import { ListaprocesosComponent } from './listaprocesos/listaprocesos.component'
     PrincipalComponent,
     ArbolprocesoComponent,
     ProcesosComponent,
-    ListaprocesosComponent
+    ListaprocesosComponent,
+    GraphRAMComponent,
+    GraphCPUComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    
+    ChartModule
+
   ],
   providers: [WebsocketService],
   bootstrap: [AppComponent]

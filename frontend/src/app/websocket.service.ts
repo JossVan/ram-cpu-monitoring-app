@@ -14,4 +14,10 @@ export class WebsocketService {
   getProcesos():Observable<any>{
     return this.http.get(this.url+"procesos");
   }
+
+  kill(pid:number):Observable<any>{
+    return this.http.post(this.url+"kill",{
+      pid : pid
+    })
+  }
 }

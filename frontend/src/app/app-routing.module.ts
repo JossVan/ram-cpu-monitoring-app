@@ -1,3 +1,5 @@
+import { GraphCPUComponent } from './graph-cpu/graph-cpu.component';
+import { GraphRAMComponent } from './graph-ram/graph-ram.component';
 import { ListaprocesosComponent } from './listaprocesos/listaprocesos.component';
 import { PrincipalComponent } from './principal/principal.component';
 
@@ -17,6 +19,14 @@ const routes: Routes = [
   {
     path:'procesos',
     component : ListaprocesosComponent
+  },
+  {
+    path:'graphram',
+    component: GraphRAMComponent
+  },
+  {
+    path: 'graphcpu',
+    component : GraphCPUComponent
   },
   {
     path: '',
