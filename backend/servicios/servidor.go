@@ -76,11 +76,11 @@ func cpu(w http.ResponseWriter, r *http.Request) {
 			cadena += "\"" + num + "\":{\n"
 		} else {
 			cadena += num
-			contador = contador + 1
 			if contador != len(array) {
 				cadena += ",\n"
 			}
 		}
+		contador = contador + 1
 	}
 	cadena += "}"
 	io.WriteString(w, cadena)
