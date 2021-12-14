@@ -76,7 +76,7 @@ func cpu(w http.ResponseWriter, r *http.Request) {
 			cadena += "\"" + num + "\":{\n"
 		} else {
 			cadena += num
-			if contador != len(array) {
+			if contador != (len(array) - 1) {
 				cadena += ",\n"
 			}
 		}
