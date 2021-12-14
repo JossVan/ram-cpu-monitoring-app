@@ -1,6 +1,11 @@
+async function terminar(pid){
 
-  $(document).ready(function() {
-
-      $('.footable').footable();
-
-  });
+    var apiUrl="http://192.168.0.16:8080/kill"
+    const resp = await fetch(apiUrl,{
+          method: 'POST',
+          headers: {
+            'Content-type' : 'application/json'
+          },
+          body: "{\"pid\":\""+pid+"\"}"
+        })
+}

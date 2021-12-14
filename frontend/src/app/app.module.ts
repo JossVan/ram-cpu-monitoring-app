@@ -14,6 +14,8 @@ import { ListaprocesosComponent } from './listaprocesos/listaprocesos.component'
 import { GraphRAMComponent } from './graph-ram/graph-ram.component';
 import { GraphCPUComponent } from './graph-cpu/graph-cpu.component';
 import { ChartModule } from 'angular2-chartjs';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,8 +33,9 @@ import { ChartModule } from 'angular2-chartjs';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ChartModule
-
+    ChartModule,
+    ToastrModule.forRoot(),
+    BrowserAnimationsModule
   ],
   providers: [WebsocketService],
   bootstrap: [AppComponent]
