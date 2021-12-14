@@ -57,12 +57,22 @@ func kill(w http.ResponseWriter, r *http.Request) {
 	}
 
 }
-
+func cpu(w http.ResponseWriter, r *http.Request) {
+	enableCors(w)
+	cmd := exec.Command("sh", "-c", "ps -eo pcpu | sort -k 1 -r | head -50")
+	out, errorcito := cmd.CombinedOutput()
+	if errorcito != nil {
+		fmt.Println(errorcito)
+		return
+	}
+	io.WriteString(w, string(out[:]))
+}
 func setupRoutes() {
 	http.HandleFunc("/", inicio)
 	http.HandleFunc("/RAM", infoRam)
 	http.HandleFunc("/procesos", procesos)
 	http.HandleFunc("/kill", kill)
+	http.HandleFunc("/cpu", cpu)
 }
 
 func main() {

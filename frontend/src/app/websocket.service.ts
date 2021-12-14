@@ -20,4 +20,7 @@ export class WebsocketService {
       pid : pid
     })
   }
+  cpu():Observable<any>{
+    return this.http.get(this.url+"cpu")
+  }
 }
