@@ -92,6 +92,7 @@ export class GraphCPUComponent implements OnInit {
     */
      showData(): void {
       this.getFromAPI().subscribe(response => {
+        console.log("paso por api")
         console.log(response)
         if(response.error === false || response.error == undefined) {
           let chartTime: any = new Date();
@@ -106,9 +107,7 @@ export class GraphCPUComponent implements OnInit {
         } else {
           console.error("ERROR: The response had an error, retrying");
         }
-      }, error => {
-        console.error("ERROR: Unexpected response");
-      });
+      })
     }
 
     /**

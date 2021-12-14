@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os/exec"
+	"strings"
 )
 
 func inicio(w http.ResponseWriter, r *http.Request) {
@@ -64,6 +65,12 @@ func cpu(w http.ResponseWriter, r *http.Request) {
 	if errorcito != nil {
 		fmt.Println(errorcito)
 		return
+	}
+	salida := string(out[:])
+	array := strings.Split(salida, "\n")
+
+	for _, num := range array {
+		fmt.Println(num)
 	}
 	io.WriteString(w, string(out[:]))
 }
