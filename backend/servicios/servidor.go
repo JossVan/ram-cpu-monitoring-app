@@ -71,14 +71,15 @@ func cpu(w http.ResponseWriter, r *http.Request) {
 	contador := 0
 	cadena := ""
 	for _, num := range array {
-		fmt.Println(num)
+
 		if contador == 0 {
 			cadena += "\"" + num + "\":{\n"
-		}
-		cadena += num
-		contador = contador + 1
-		if contador != len(array) {
-			cadena += ",\n"
+		} else {
+			cadena += num
+			contador = contador + 1
+			if contador != len(array) {
+				cadena += ",\n"
+			}
 		}
 	}
 	cadena += "}"
