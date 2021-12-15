@@ -16,6 +16,8 @@ import { GraphCPUComponent } from './graph-cpu/graph-cpu.component';
 import { ChartModule } from 'angular2-chartjs';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSliderModule } from '@angular/material/slider';
+import {MatExpansionModule} from '@angular/material/expansion';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +37,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     ChartModule,
     ToastrModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatSliderModule,
+    MatExpansionModule,
   ],
   providers: [WebsocketService],
   bootstrap: [AppComponent]
