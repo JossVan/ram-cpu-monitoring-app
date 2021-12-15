@@ -38,6 +38,8 @@ static int Escribir_Archivo(struct seq_file *archivo, void *v)
         seq_printf(archivo,"\"pid\":%d,\n",proceso->pid);
         //nombre del proceso
         seq_printf(archivo,"\"nombre\":\"%s\",\n",proceso->comm);
+        //uid del usuario 
+        seq_printf(archivo,"\"user\":%d,\n",proceso->real_cred->uid);
         //estado
         seq_printf(archivo,"\"estado\":%ld\n",proceso->state);
 
