@@ -41,4 +41,19 @@ export class WebsocketService {
     const resp = respuestaRaw.ok
     return resp
   }
+
+  async usuario(user:string){
+    let datos ={
+      user : String(user)
+    }
+    const respuestaRaw = await fetch("http://192.168.0.16:8080/user", {
+        body: JSON.stringify(datos), // <-- Aquí van los datos
+        headers: {
+          "Content-Type": "application/json", // <-- Importante el encabezado
+        },
+          method: "POST",
+    })
+    const resp = await respuestaRaw.json();
+    return resp.values
+  }
 }

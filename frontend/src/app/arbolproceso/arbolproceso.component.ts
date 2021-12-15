@@ -21,57 +21,93 @@ export class ArbolprocesoComponent implements OnInit {
     interval(1000)
     .pipe(takeWhile(() => true))
     .subscribe(() => {
-    html = "<table class=\"footable table table-stripped toggle-arrow-tiny\" data-page-size=\"15\">"+
-    "<thead>"+
-    "<tr>"+
 
-        "<th data-toggle=\"true\">PID</th>"+
-        "<th data-hide=\"phone\">Nombre</th>"+
-        "<th data-hide=\"all\">Hijos</th>"+
-        "<th data-hide=\"phone\">RAM</th>"+
-        "<th data-hide=\"phone\">No.Hijos</th>"+
-        "<th class=\"text-right\" data-sort-ignore=\"true\">Estado</th>"+
+    let tabla = document.createElement("table")
+    tabla.setAttribute("class","footable table table-stripped toggle-arrow-tiny")
+    tabla.setAttribute("data-page-size","15")
+    let thead = document.createElement("thead")
+    let encabezado = document.createElement("tr")
+    let celdapid = document.createElement("th")
+    let celdanombre = document.createElement("th")
+    let celdahijos = document.createElement("th")
+    let celdaram = document.createElement("th")
+    let celdanumero = document.createElement("th")
+    let celdaestado = document.createElement("th")
+    celdapid.appendChild(document.createTextNode("PID"))
+    celdanombre.appendChild(document.createTextNode("Nombre"))
+    celdahijos.appendChild(document.createTextNode("Hijos"))
+    celdaram.appendChild(document.createTextNode("RAM"))
+    celdaestado.setAttribute("class","text-right")
+    celdaestado.setAttribute("data-sort-ignore","true")
+    celdaestado.appendChild(document.createTextNode("Estado"))
+    celdanumero.appendChild(document.createTextNode("No.Hijos"))
+    encabezado.appendChild(celdapid)
+    encabezado.appendChild(celdanombre)
+    encabezado.appendChild(celdahijos)
+    encabezado.appendChild(celdaram)
+    encabezado.appendChild(celdanumero)
+    encabezado.appendChild(celdaestado)
+    thead.appendChild(encabezado)
+    tabla.appendChild(thead)
+    let tbody = document.createElement("tbody")
 
-    "</tr>"+
-    "</thead>"+
-    "<tbody>"
     this.info.forEach(item=>{
-      html+="<tr>\n"
-      html+="<td>"+item.pid+"</td>\n"
-      html+="<td>"+item.nombre+"</td>\n"
-      html+="<td>\n"
-      html+="<table class=\"table\">"+
-      "<thead>"+
-      "<tr>"+
-          "<th>PID</th>"+
-          "<th>Nombre</th>"+
-      "</tr>"+
-      "</thead>"+
-      "<tbody>"
+      let fila = document.createElement("tr")
+      let itempid = document.createElement("td")
+      let itemnombre = document.createElement("td")
+      itempid.appendChild(document.createTextNode(item.pid))
+      itemnombre.appendChild(document.createTextNode(item.nombre))
+      let itemHijos = document.createElement("td")
+      let tablahijo = document.createElement("table")
+      tablahijo.setAttribute("class","table")
+      let theadhijo = document.createElement("thead")
+      let encabezadohijo = document.createElement("tr")
+      let celdapid = document.createElement("th")
+      let celdanombre = document.createElement("th")
+      celdapid.appendChild(document.createTextNode("PID"))
+      celdanombre.appendChild(document.createTextNode("Nombre"))
+      encabezadohijo.appendChild(celdapid)
+      encabezadohijo.appendChild(celdanombre)
+      theadhijo.appendChild(encabezadohijo)
+      tablahijo.appendChild(theadhijo)
+      let tbodyhijo = document.createElement("tbody")
       item.hijos.forEach(hijo => {
-        html+="<tr><td>"
-        html+=hijo.pid+"</td>"
-        html+="<td>"+hijo.nombre+"</td></tr>"
+        let filahijo = document.createElement("tr")
+        let celdapid = document.createElement("td")
+        celdapid.appendChild(document.createTextNode(hijo.pid))
+        let celdanombre = document.createElement("td")
+        celdanombre.appendChild(document.createTextNode(hijo.nombre))
+        filahijo.appendChild(celdapid)
+        filahijo.appendChild(celdanombre)
+        tbodyhijo.appendChild(filahijo)
       });
-      html+="</tbody>"+
-      "</table>"+
-      "</td><td><span class=\"label label-primary\">"+ item.ram+"%</span></td>"+
-      "<td>"+item.num+"</td>"+"<td class=\"text-right\">"+item.estado+"</td></tr>"
+      tablahijo.appendChild(tbodyhijo)
+      itemHijos.appendChild(tablahijo)
+      let celdaram = document.createElement("td")
+      let span = document.createElement("span")
+      span.setAttribute("class","label label-primary")
+      span.appendChild(document.createTextNode(item.ram))
+      celdaram.appendChild(span)
+      let celdanum = document.createElement("td")
+      celdanum.appendChild(document.createTextNode(item.num))
+      let celdaestado = document.createElement("td")
+      celdaestado.setAttribute("class","text-right")
+      celdaestado.appendChild(document.createTextNode(item.estado))
+      fila.appendChild(itempid)
+      fila.appendChild(itemnombre)
+      fila.appendChild(itemHijos)
+      fila.appendChild(celdaram)
+      fila.appendChild(celdanum)
+      fila.appendChild(celdaestado)
+      tbody.appendChild(fila)
     })
-    html+="</tbody>"+
-    "<tfoot>"+
-    "<tr>"+
-        "<td colspan=\"6\">"+
-            "<ul class=\"pagination float-right\"></ul>"+
-        "</td>"+
-    "</tr>"+
-    "</tfoot></table>"
-
-    jQuery("#tabla").html(html);
+    tabla.appendChild(tbody)
+    document.getElementById("tabla").innerHTML=""
+    document.getElementById("tabla").appendChild(tabla)
+   // jQuery("#tabla").html(html);
 
     this.info = []
     this.actualizar()
-
     });
   }
 

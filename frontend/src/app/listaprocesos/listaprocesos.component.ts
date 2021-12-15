@@ -19,12 +19,17 @@ export class ListaprocesosComponent implements OnInit {
   unrunnable:Number =0
   total : Number = 0
   info : any[] = [];
+  usuarios :any[]=[];
   pid = "";
   ngOnInit(): void {
+
+    this.llenar()
+    console.log(this.usuarios)
     interval(1000)
     .pipe(takeWhile(() => true))
     .subscribe(() => {
     this.actualizar()
+
     let htmlinfo = "<div class=\"col-lg-3\">"+
     "<div class=\"widget style1 yellow-bg\">"+
             "<div class=\"row\">"+
@@ -146,10 +151,11 @@ let tbody = document.createElement("tbody")
       let colkill = document.createElement("td")
       let pidt= document.createTextNode(item.pid)
       let nombret = document.createTextNode(item.nombre)
-      let usert= document.createTextNode("sopes1")
+      let usert= document.createTextNode(item.user)
       let ramt= document.createTextNode(item.ram+"%")
       let estadot = document.createTextNode(item.estado)
       let boton = document.createElement("button")
+
       boton.setAttribute("class","btn btn-outline btn-danger  dim ")
       boton.setAttribute("type","button")
       boton.setAttribute("onclick","terminar("+item.pid+");")
@@ -226,19 +232,31 @@ let tbody = document.createElement("tbody")
           }
           hh.push(hijos)
         });
-        let rram = "-"
+        let rram = "0"
         if (element.ram!=undefined){
         let rram1 = Number(element.ram)/1000000
         rram1 = Number((rram1*100/2985.52).toFixed(3))
         rram = String(rram1)
         }
+        let usuario
+        for(let i =0; i<this.usuarios.length;i++){
+          if (this.usuarios[i].uid == element.user){
+            usuario = this.usuarios[i].nombre
+            break
+          }
+        }
+        if (usuario == ""){
+          usuario = this.getuser(element.user)
+        }
+
 
         let item  ={
           nombre : element.nombre,
           pid : element.pid,
           ram : rram,
           estado: element.estado,
-          hijos : hh
+          hijos : hh,
+          user : usuario
         }
         this.info.push(item)
         this.unrunnable = unrunnable
@@ -251,6 +269,28 @@ let tbody = document.createElement("tbody")
     })
 }
 
+ async llenar(){
+    this.servicio.getProcesos().subscribe(resultado=>{
+      resultado.procesos.forEach(async element => {
+        for(let i=0;i<this.usuarios.length;i++){
+          if(element.user == this.usuarios[i].uid){
+            return this.usuarios[i].nombre
+          }
+        }
+        let valor = await this.getuser(element.user)
+        const datos ={
+          uid:element.user,
+          nombre:valor
+        }
+         this.usuarios.push(datos)
+      });
+    })
+  }
+
+ async getuser(user:string){
+  let val =await this.servicio.usuario(user)
+  return val
+}
 
 
 }
@@ -263,3 +303,4 @@ async function  kill(pid){
    this.toastr.success("El proceso "+pid+" no existe","Failed")
   }
  }
+
