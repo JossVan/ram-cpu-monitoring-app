@@ -1,0 +1,1 @@
+cmd_/home/sopes1/Documentos/sopes1/SO1_Proyecto1_201602676/backend/modulos/CPU/Module.symvers := sed 's/ko$$/o/' /home/sopes1/Documentos/sopes1/SO1_Proyecto1_201602676/backend/modulos/CPU/modules.order | scripts/mod/modpost -m -a   -o /home/sopes1/Documentos/sopes1/SO1_Proyecto1_201602676/backend/modulos/CPU/Module.symvers -e -i Module.symvers   -T -
