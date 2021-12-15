@@ -27,6 +27,7 @@ export class GraphCPUComponent implements OnInit {
     * @function ngOnInit
     * @return {void}
     */
+   total = ""
      ngOnInit(): void {
       this.chart = new Chart('realtime', {
         type: 'line',
@@ -34,7 +35,7 @@ export class GraphCPUComponent implements OnInit {
           labels: [],
           datasets: [
             {
-            label: 'Data',
+            label: '%CPU',
             fill: false,
             data: [],
             backgroundColor: '#168ede',
@@ -71,9 +72,9 @@ export class GraphCPUComponent implements OnInit {
 
       this.showData();
 
-     /* this.intervalUpdate = setInterval(function(this:GraphCPUComponent){
+     this.intervalUpdate = setInterval(function(this:GraphCPUComponent){
         this.showData();
-      }.bind(this), 500);*/
+      }.bind(this), 1000);
     }
 
     /**
@@ -92,7 +93,7 @@ export class GraphCPUComponent implements OnInit {
     */
      showData(): void {
       this.getFromAPI().subscribe(response => {
-        console.log(response)
+
         if(response.error === false || response.error == undefined) {
           let chartTime: any = new Date();
           chartTime = chartTime.getHours() + ':' + ((chartTime.getMinutes() < 10) ? '0' + chartTime.getMinutes() : chartTime.getMinutes()) + ':' + ((chartTime.getSeconds() < 10) ? '0' + chartTime.getSeconds() : chartTime.getSeconds());
@@ -101,14 +102,13 @@ export class GraphCPUComponent implements OnInit {
               this.chart.data.datasets[0].data.shift();
           }
           this.chart.data.labels.push(chartTime);
-          this.chart.data.datasets[0].data.push(response.porcentaje);
+          this.total = String((100-response.total).toFixed(2))
+          this.chart.data.datasets[0].data.push(100-response.total);
           this.chart.update();
         } else {
           console.error("ERROR: The response had an error, retrying");
         }
-      }, error => {
-        console.error("ERROR: Unexpected response");
-      });
+      })
     }
 
     /**

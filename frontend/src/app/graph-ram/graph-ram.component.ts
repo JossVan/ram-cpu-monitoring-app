@@ -21,7 +21,7 @@ export class GraphRAMComponent implements OnInit{
 	* @var {any} chart
 	*/
 	public chart: any = null;
-
+  porcentaje = ""
 	/**
 	* On component initialization
 	* @function ngOnInit
@@ -34,7 +34,7 @@ export class GraphRAMComponent implements OnInit{
 				labels: [],
 				datasets: [
 				  {
-					label: 'Data',
+					label: '% utilización de RAM',
 					fill: false,
 					data: [],
 					backgroundColor: '#168ede',
@@ -73,7 +73,7 @@ export class GraphRAMComponent implements OnInit{
 
 		this.intervalUpdate = setInterval(function(this:GraphRAMComponent){
 			this.showData();
-		}.bind(this), 500);
+		}.bind(this), 1000);
 	}
 
 	/**
@@ -101,6 +101,7 @@ export class GraphRAMComponent implements OnInit{
 						this.chart.data.datasets[0].data.shift();
 				}
 				this.chart.data.labels.push(chartTime);
+        this.porcentaje = response.porcentaje+"%"
 				this.chart.data.datasets[0].data.push(response.porcentaje);
 				this.chart.update();
 			} else {
